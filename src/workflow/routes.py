@@ -3,7 +3,7 @@
 定义节点之间的条件路由
 """
 from typing import Literal
-from workflow.state import WorkflowState
+from src.workflow.state import WorkflowState
 
 
 def should_search_web(state: WorkflowState) -> Literal["web_search", "answer_generation"]:

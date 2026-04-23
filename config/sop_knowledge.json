@@ -1,0 +1,101 @@
+[
+  {
+    "id": "sop_refund",
+    "name": "退款流程",
+    "trigger_keywords": [
+      "退款",
+      "退货",
+      "申请退款"
+    ],
+    "content_type": "rich_text",
+    "content": {
+      "title": "退款申请流程",
+      "text": "您好，关于退款申请，请按照以下流程操作：\n\n1. 登录您的账户\n2. 找到订单详情\n3. 点击申请退款\n4. 填写退款原因\n5. 提交申请",
+      "image_url": "https://example.com/refund_flow.png",
+      "video_url": "https://example.com/refund_video.mp4",
+      "short_link": "https://example.com/refund"
+    },
+    "flow_config": {
+      "steps": [
+        {
+          "step": 1,
+          "action": "verify_order",
+          "message": "正在验证订单信息..."
+        },
+        {
+          "step": 2,
+          "action": "check_policy",
+          "message": "正在检查退款政策..."
+        },
+        {
+          "step": 3,
+          "action": "process_refund",
+          "message": "正在处理退款..."
+        }
+      ]
+    },
+    "metadata": {},
+    "created_at": "2026-04-23T14:26:21.864845",
+    "updated_at": "2026-04-23T14:26:21.864871"
+  },
+  {
+    "id": "sop_register",
+    "name": "账号注册流程",
+    "trigger_keywords": [
+      "注册",
+      "开户",
+      "创建账号"
+    ],
+    "content_type": "mixed",
+    "content": {
+      "title": "账号注册指南",
+      "sections": [
+        {
+          "type": "text",
+          "content": "欢迎使用我们的服务！请按照以下步骤注册账号："
+        },
+        {
+          "type": "image",
+          "url": "https://example.com/register_step1.png",
+          "caption": "步骤1：填写基本信息"
+        },
+        {
+          "type": "text",
+          "content": "2. 验证手机号码"
+        },
+        {
+          "type": "video",
+          "url": "https://example.com/register_tutorial.mp4",
+          "caption": "注册教程视频"
+        },
+        {
+          "type": "short_link",
+          "url": "https://example.com/register_now",
+          "text": "立即注册"
+        }
+      ]
+    },
+    "flow_config": {},
+    "metadata": {},
+    "created_at": "2026-04-23T14:26:21.864877",
+    "updated_at": "2026-04-23T14:26:21.864879"
+  },
+  {
+    "id": "sop_product",
+    "name": "产品咨询",
+    "trigger_keywords": [
+      "产品",
+      "价格",
+      "功能"
+    ],
+    "content_type": "text",
+    "content": {
+      "title": "产品信息",
+      "text": "我们的产品包含以下功能：\n\n1. 智能问答\n2. 知识库管理\n3. 多模态交互\n\n价格方案请访问官网查看。"
+    },
+    "flow_config": {},
+    "metadata": {},
+    "created_at": "2026-04-23T14:26:21.864882",
+    "updated_at": "2026-04-23T14:26:21.864884"
+  }
+]

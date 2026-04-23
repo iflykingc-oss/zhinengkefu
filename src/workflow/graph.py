@@ -3,9 +3,9 @@
 构建完整的工作流图
 """
 from langgraph.graph import StateGraph, END
-from workflow.state import WorkflowState
-from workflow.config import get_workflow_config, NodeStatus
-from workflow.nodes import (
+from src.workflow.state import WorkflowState
+from src.workflow.config import get_workflow_config, NodeStatus
+from src.workflow.nodes import (
     input_parser_node,
     knowledge_search_node,
     web_search_node,
@@ -13,7 +13,7 @@ from workflow.nodes import (
     answer_generation_node,
     feishu_notification_node
 )
-from workflow.routes import should_search_web, should_send_feishu
+from src.workflow.routes import should_search_web, should_send_feishu
 
 
 def build_workflow(debug_mode: bool = False):

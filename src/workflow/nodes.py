@@ -4,8 +4,8 @@
 import logging
 from typing import Dict, Any
 from langchain_core.messages import HumanMessage, AIMessage
-from workflow.state import WorkflowState
-from workflow.config import get_workflow_config, NodeStatus
+from src.workflow.state import WorkflowState
+from src.workflow.config import get_workflow_config, NodeStatus
 
 logger = logging.getLogger(__name__)
 

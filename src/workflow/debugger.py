@@ -3,8 +3,8 @@
 支持分模块调试、单步执行、断点等
 """
 from typing import Dict, List, Optional, Any
-from workflow.state import WorkflowState
-from workflow.nodes import input_parser_node, knowledge_search_node, web_search_node, risk_assessment_node, answer_generation_node, feishu_notification_node
+from src.workflow.state import WorkflowState
+from src.workflow.nodes import input_parser_node, knowledge_search_node, web_search_node, risk_assessment_node, answer_generation_node, feishu_notification_node
 import logging
 import json
 import time
