@@ -248,7 +248,7 @@ def answer_generation_node(state: WorkflowState) -> WorkflowState:
 
         context = "\n\n".join(context_parts) if context_parts else ""
 
-        # 系统提示词
+        # 系统提示词（不向用户展示来源信息）
         system_prompt = """你是一个专业的智能客服助手。
 
 根据提供的参考信息回答用户问题。如果提供了参考信息，请优先基于参考信息回答。
@@ -256,9 +256,8 @@ def answer_generation_node(state: WorkflowState) -> WorkflowState:
 
 回答要求：
 1. 准确、简洁、友好
-2. 如果使用了知识库，标注"【知识库答案】"
-3. 如果使用了联网搜索，标注"【网络搜索答案】"
-4. 如果拒绝了外部信息，标注"【信息风险提醒】"
+2. 直接回答用户问题，不要标注答案来源
+3. 如果参考信息不足，可以说明需要更多信息
 """
 
         # 构建消息 - 使用 LangChain 的消息类型

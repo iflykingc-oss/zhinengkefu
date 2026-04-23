@@ -282,10 +282,12 @@ def export_conversation_history_direct(format: str = "json") -> str:
     Returns:
         导出结果
     """
-    # 模拟数据
+    # 模拟数据（包含来源信息）
     mock_data = [
-        {"user": "怎么退款？", "bot": "请按照以下流程操作...", "timestamp": "2024-01-01 10:00:00"},
-        {"user": "产品价格", "bot": "我们的产品价格...", "timestamp": "2024-01-01 11:00:00"}
+        {"user": "怎么退款？", "bot": "请按照以下流程操作...", "timestamp": "2024-01-01 10:00:00", "source": "knowledge_base"},
+        {"user": "产品价格", "bot": "我们的产品价格...", "timestamp": "2024-01-01 11:00:00", "source": "web_search"},
+        {"user": "你好", "bot": "你好！有什么可以帮您？", "timestamp": "2024-01-01 12:00:00", "source": "llm"},
+        {"user": "我要退货", "bot": "请查看退货流程...", "timestamp": "2024-01-01 13:00:00", "source": "sop"}
     ]
 
     try:
@@ -310,8 +312,9 @@ def export_conversation_history_direct(format: str = "json") -> str:
             lines = ["# 会话记录\n\n"]
             for item in mock_data:
                 lines.append(f"## {item['timestamp']}\n\n")
-                lines.append(f"**用户**: {item['user']}\n\n")
-                lines.append(f"**机器人**: {item['bot']}\n\n")
+                lines.append(f"### 用户\n{item['user']}\n\n")
+                lines.append(f"### 机器人\n{item['bot']}\n\n")
+                lines.append(f"**来源**: {item['source']}\n\n")
                 lines.append("---\n\n")
 
             return "".join(lines)
