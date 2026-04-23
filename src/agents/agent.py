@@ -16,6 +16,7 @@ from storage.memory.memory_saver import get_memory_saver
 # 导入工具
 from tools.knowledge_search_tool import search_knowledge_base
 from tools.web_search_tool import search_web
+from tools.feishu_notification_tool import send_feishu_text_message, send_feishu_rich_message
 
 LLM_CONFIG = "config/agent_llm_config.json"
 
@@ -69,7 +70,7 @@ def build_agent(ctx=None):
     )
 
     # 注册工具
-    tools = [search_knowledge_base, search_web]
+    tools = [search_knowledge_base, search_web, send_feishu_text_message, send_feishu_rich_message]
 
     # 创建 Agent
     agent = create_agent(
