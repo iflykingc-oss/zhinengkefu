@@ -1,0 +1,99 @@
+<!--pages/config/config.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">智能客服配置</text>
+  </view>
+
+  <!-- 工作流配置 -->
+  <view class="section">
+    <view class="section-title">工作流配置</view>
+
+    <view class="item">
+      <text class="label">调试模式</text>
+      <switch checked="{{config.workflow.debugMode}}" bindchange="toggleDebugMode" />
+    </view>
+
+    <view class="item">
+      <text class="label">启用飞书通知</text>
+      <switch checked="{{config.workflow.enableFeishu}}" bindtap="updateConfig" data-field="workflow.enableFeishu" />
+    </view>
+  </view>
+
+  <!-- 节点管理 -->
+  <view class="section">
+    <view class="section-title">节点管理</view>
+
+    <view class="nodes-list">
+      <view class="node-item" wx:for="{{nodes}}" wx:key="id">
+        <view class="node-info">
+          <text class="node-name">{{item.name}}</text>
+          <text class="node-desc">{{item.description}}</text>
+        </view>
+        <view class="node-status {{item.status}}">
+          <text>{{item.status === 'enabled' ? '启用' : item.status === 'disabled' ? '禁用' : '调试'}}</text>
+        </view>
+        <button class="btn-toggle" size="mini" bindtap="toggleNodeStatus" data-id="{{item.id}}">
+          {{item.status === 'enabled' ? '禁用' : '启用'}}
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 知识库配置 -->
+  <view class="section">
+    <view class="section-title">知识库配置</view>
+
+    <view class="item">
+      <text class="label">默认数据集</text>
+      <input
+        type="text"
+        value="{{config.knowledge.defaultDataset}}"
+        bindinput="updateConfig"
+        data-field="knowledge.defaultDataset"
+        placeholder="默认数据集名称"
+      />
+    </view>
+  </view>
+
+  <!-- 模型配置 -->
+  <view class="section">
+    <view class="section-title">模型配置</view>
+
+    <view class="item">
+      <text class="label">模型ID</text>
+      <input
+        type="text"
+        value="{{config.model.modelId}}"
+        bindinput="updateConfig"
+        data-field="model.modelId"
+        placeholder="模型ID"
+      />
+    </view>
+
+    <view class="item">
+      <text class="label">温度参数</text>
+      <slider
+        min="0"
+        max="2"
+        step="0.1"
+        value="{{config.model.temperature}}"
+        bindchange="updateConfig"
+        data-field="model.temperature"
+        show-value
+      />
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="actions">
+    <button class="btn-primary" bindtap="saveConfig" loading="{{loading}}">
+      保存配置
+    </button>
+    <button class="btn-secondary" bindtap="reloadConfig">
+      重新加载
+    </button>
+    <button class="btn-secondary" bindtap="testConnection">
+      测试连接
+    </button>
+  </view>
+</view>
