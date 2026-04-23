@@ -1,0 +1,110 @@
+{
+  "workflow": {
+    "name": "智能客服工作流",
+    "version": "1.0.0",
+    "debug_mode": false
+  },
+  "nodes": {
+    "input_parser": {
+      "name": "输入解析节点",
+      "description": "解析用户输入，判断是否包含图片",
+      "status": "enabled",
+      "config": {
+        "max_input_length": 10000
+      }
+    },
+    "knowledge_search": {
+      "name": "知识库搜索节点",
+      "description": "在知识库中搜索相关信息",
+      "status": "debug",
+      "config": {
+        "top_k": 10,
+        "min_score": 0.5,
+        "timeout": 30
+      }
+    },
+    "web_search": {
+      "name": "联网搜索节点",
+      "description": "在互联网上搜索信息",
+      "status": "enabled",
+      "config": {
+        "count": 5,
+        "need_summary": true,
+        "timeout": 30
+      }
+    },
+    "risk_assessment": {
+      "name": "风险评估节点",
+      "description": "评估外部信息的风险",
+      "status": "enabled",
+      "config": {
+        "strict_mode": true,
+        "check_reliability": true,
+        "check_safety": true
+      }
+    },
+    "answer_generation": {
+      "name": "答案生成节点",
+      "description": "生成最终答案",
+      "status": "enabled",
+      "config": {
+        "model": "doubao-seed-1-8-251228",
+        "temperature": 0.7,
+        "max_tokens": 4096
+      }
+    },
+    "feishu_notification": {
+      "name": "飞书通知节点",
+      "description": "发送通知到飞书群组",
+      "status": "enabled",
+      "config": {
+        "auto_send": false,
+        "send_on_important": true
+      }
+    }
+  },
+  "edges": [
+    {
+      "from": "input_parser",
+      "to": "knowledge_search"
+    },
+    {
+      "from": "knowledge_search",
+      "to": "web_search",
+      "condition": "not_knowledge_found"
+    },
+    {
+      "from": "knowledge_search",
+      "to": "answer_generation",
+      "condition": "knowledge_found"
+    },
+    {
+      "from": "web_search",
+      "to": "risk_assessment"
+    },
+    {
+      "from": "risk_assessment",
+      "to": "answer_generation",
+      "condition": "not_risky"
+    },
+    {
+      "from": "risk_assessment",
+      "to": "answer_generation",
+      "condition": "risky"
+    },
+    {
+      "from": "answer_generation",
+      "to": "feishu_notification",
+      "condition": "enable_feishu"
+    },
+    {
+      "from": "feishu_notification",
+      "to": "__end__"
+    },
+    {
+      "from": "answer_generation",
+      "to": "__end__",
+      "condition": "not_enable_feishu"
+    }
+  ]
+}
