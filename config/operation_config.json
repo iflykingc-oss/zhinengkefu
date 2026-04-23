@@ -1,0 +1,126 @@
+{
+  "greeting": {
+    "enabled": true,
+    "messages": [
+      "您好，我是智能客服助手，有什么可以帮您的吗？",
+      "您好！请问有什么可以帮到您？"
+    ],
+    "delay": 2
+  },
+  "chitchat": {
+    "enabled": true,
+    "auto_detect": true,
+    "intents": [
+      {
+        "intent": "greeting",
+        "keywords": [
+          "你好",
+          "嗨",
+          "hello",
+          "hi"
+        ],
+        "responses": [
+          "你好！",
+          "嗨！有什么可以帮您？"
+        ]
+      },
+      {
+        "intent": "thanks",
+        "keywords": [
+          "谢谢",
+          "感谢",
+          "thanks"
+        ],
+        "responses": [
+          "不客气！",
+          "很高兴能帮到您！"
+        ]
+      },
+      {
+        "intent": "goodbye",
+        "keywords": [
+          "再见",
+          "拜拜",
+          "bye"
+        ],
+        "responses": [
+          "再见！祝您生活愉快！",
+          "拜拜！"
+        ]
+      }
+    ]
+  },
+  "transfer_to_human": {
+    "enabled": true,
+    "strategies": [
+      {
+        "type": "keyword",
+        "name": "关键词转人工",
+        "enabled": true,
+        "config": {
+          "keywords": [
+            "转人工",
+            "找客服",
+            "人工客服",
+            "投诉",
+            "投诉"
+          ],
+          "match_mode": "contains"
+        }
+      },
+      {
+        "type": "round_limit",
+        "name": "轮次限制",
+        "enabled": true,
+        "config": {
+          "max_rounds": 5,
+          "no_solution_trigger": true
+        }
+      },
+      {
+        "type": "sentiment",
+        "name": "情感分析",
+        "enabled": true,
+        "config": {
+          "negative_threshold": 0.7,
+          "anger_threshold": 0.8
+        }
+      }
+    ],
+    "fallback_message": "正在为您转接人工客服，请稍候..."
+  },
+  "knowledge_base": {
+    "enabled": true,
+    "priority": 1,
+    "rag_enabled": true,
+    "retrieval_config": {
+      "top_k": 5,
+      "min_score": 0.5
+    }
+  },
+  "sop_flow": {
+    "enabled": true,
+    "priority": 0,
+    "canvas_nodes": []
+  },
+  "human_handoff": {
+    "enabled": true,
+    "channels": [
+      "feishu",
+      "weixin",
+      "email"
+    ],
+    "default_channel": "feishu",
+    "notification_message": "有新的人工转接请求："
+  },
+  "conversation_settings": {
+    "max_rounds": 20,
+    "timeout": 1800,
+    "remember_context": true
+  },
+  "response_settings": {
+    "stream_response": true,
+    "show_thinking": false,
+    "typing_indicator": true
+  }
+}
