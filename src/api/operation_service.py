@@ -3,7 +3,8 @@
 提供运营配置管理、日志导出、SOP流程画布等API接口
 """
 from fastapi import FastAPI, HTTPException, Query, Body
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 import logging
@@ -11,6 +12,40 @@ import logging
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="智能客服运营后台API", version="5.0.0")
+
+# 挂载静态文件服务
+import os
+static_dir = os.path.join(os.path.dirname(__file__), "../../static")
+if os.path.exists(static_dir):
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+
+@app.get("/")
+async def root():
+    """根路径返回运营后台页面"""
+    import os
+    static_dir = os.path.join(os.path.dirname(__file__), "../../static")
+    index_path = os.path.join(static_dir, "index.html")
+
+    if os.path.exists(index_path):
+        with open(index_path, 'r', encoding='utf-8') as f:
+            return HTMLResponse(content=f.read())
+    else:
+        return JSONResponse(content={"message": "运营后台页面不存在"}, status_code=404)
+
+
+@app.get("/admin")
+async def admin():
+    """管理后台入口"""
+    import os
+    static_dir = os.path.join(os.path.dirname(__file__), "../../static")
+    index_path = os.path.join(static_dir, "index.html")
+
+    if os.path.exists(index_path):
+        with open(index_path, 'r', encoding='utf-8') as f:
+            return HTMLResponse(content=f.read())
+    else:
+        return JSONResponse(content={"message": "运营后台页面不存在"}, status_code=404)
 
 
 # ==================== 配置管理接口 ====================
